@@ -3,6 +3,9 @@
 include 'database.php';
 
 $obj = new database();
+$colName = "students.id, students.student_name,students.age, citytb.cname";
+$join = "citytb ON students.city = citytb.cid";
+$limit = 2;
 
 // ----------------------------------------------------
 
@@ -37,7 +40,20 @@ $obj = new database();
 // echo "<br>SQL result is: ";
 // print_r($obj->getResult());
 
-// $obj->select('students', '*', null, null, null, null);
-$obj->select('students', '*', null, 'city="agra"', null, null);
+// $obj->select('students', '*', null, null, null, 2);
+// $obj->select('students', '*', null, 'city="agra"', null, null);
+// echo "<br>Select result is: ";
+// print_r($obj->getResult());
+
+// ----------------------------------------------------
+
+// $obj->select('students', '*', null, null, null, 3);
+// echo $obj->pagination('students', null, null, 3);
+// echo "<br>Select result is: ";
+// print_r($obj->getResult());
+
+
+$obj->select('students', $colName, $join, null, null, $limit);
+echo $obj->pagination('students', $join, null, $limit);
 echo "<br>Select result is: ";
 print_r($obj->getResult());
